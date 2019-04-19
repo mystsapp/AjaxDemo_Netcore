@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "devDependencies": {
+    "twbs-pagination": "~1.4.2",
+    "font-awesome-5": "~5.8.1"
+  }
+}

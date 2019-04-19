@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section Scripts{
+    <script src="~/js/Employee/bootbox.min.js"></script>
+    <script src="~/js/Employee/mustache.min.js"></script>
+    <script src="~/lib/twbs-pagination/jquery.twbsPagination.min.js"></script>
+    <script src="~/js/Employee/jquery.validate.min.js"></script>
+    <script src="~/js/Employee/EmployeeController.js"></script>
+}
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-10">
+            <div class="col-md-4 float-left">
+                <input type="text" class="form-control" id="txtNameS" placeholder="Type name or username..." />
+            </div>
+            <div class="col-md-3 float-left">
+                <select class="form-control" id="ddlStatusS">
+                    <option value="">Tất cả</option>
+                    <option value="true">Kích hoạt</option>
+                    <option value="false">Khóa</option>
+                </select>
+            </div>
+
+            <div class="col-md-3 btn-group float-left d-flex">
+                <button id="btnSearch" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                <button id="btnReset" class="btn btn-secondary"></button>
+                <button id="btnAddNew" class="btn btn-success"><i class="fa fa-plus-square"></i></button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover text-center">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Salary</th>
+                    <th>Status</th>
+
+                </tr>
+            </thead>
+            <tbody id="tblData" class="table"></tbody>
+        </table>
+
+        <div id="pagination" class="pagination"></div>
+    </div>
+
+
+    <script id="data-template" type="x-tmpl-mustache">
+
+        <tr>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-outline btn-primary btn-sm btn-edit" data-id="{{id}}"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-outline btn-danger btn-sm btn-delete" data-id="{{id}}"><i class="fa fa-trash"></i></button>
+                </div>
+            </td>
+            <td>{{Id}}</td>
+            <td>{{Name}}</td>
+            <td>{{Salary}}</td>
+            <td>{{{Status}}}</td>
+
+        </tr>
+    </script>
+</div>
+
+@*@RenderPage("_AddUpdateModal.cshtml");*@
+<partial name="_AddUpdateModal.cshtml" />
