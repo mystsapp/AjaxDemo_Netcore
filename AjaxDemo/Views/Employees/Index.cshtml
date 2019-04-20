@@ -9,6 +9,12 @@
     <script src="~/lib/twbs-pagination/jquery.twbsPagination.min.js"></script>
     <script src="~/js/Employee/jquery.validate.min.js"></script>
     <script src="~/js/Employee/EmployeeController.js"></script>
+
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
 }
 
 <br />
@@ -63,8 +69,8 @@
         <tr>
             <td>
                 <div class="btn-group">
-                    <button class="btn btn-outline btn-primary btn-sm btn-edit" data-id="{{id}}"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-outline btn-danger btn-sm btn-delete" data-id="{{id}}"><i class="fa fa-trash"></i></button>
+                    <button class="btn btn-outline btn-primary btn-sm btn-edit" data-id="{{Id}}"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-outline btn-danger btn-sm btn-delete" data-id="{{Id}}"><i class="fa fa-trash"></i></button>
                 </div>
             </td>
             <td>{{Id}}</td>

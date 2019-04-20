@@ -97,5 +97,30 @@ namespace AjaxDemo.Controllers
                 message = message
             });
         }
+
+        [HttpGet]
+        public IActionResult GetDetail(int id)
+        {
+            var employee = _employeeRepository.GetById(id);
+
+            return Json(new
+            {
+                status = true,
+                data = employee
+            });
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var employee = _employeeRepository.GetById(id);
+
+            _employeeRepository.Delete(employee);
+
+            return Json(new
+            {
+                status = true
+            });
+        }
     }
 }

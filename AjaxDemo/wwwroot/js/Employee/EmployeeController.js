@@ -8,6 +8,30 @@ var EmployeeController = {
     },
 
     registerEvent: function () {
+
+        $('#frmSaveData').validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 5
+                },
+                salary: {
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Họ tên không được để trống.",
+                    minlength: "Chiều dài tối thiểu ít nhất 5 ký tự"
+                },
+                salary: {
+                    required: "Salary không được để trống.",
+                    number: "Bạn phải nhập số."
+                }
+            }
+        });
+
         $('#btnSearch').off('click').on('click', function () {
             EmployeeController.loadData(true);
         });
@@ -18,14 +42,94 @@ var EmployeeController = {
             }
         });
 
+        $('#txtNameS').off('change keydown paste input').on('change keydown paste input', function () {
+
+            EmployeeController.loadData(true);
+
+        });
+
+        $('#ddlStatusS').off('change').on('change', function () {
+            EmployeeController.loadData(true);
+
+        });
+
         $('#btnAddNew').off('click').on('click', function () {
             $('#modalAddUpdate').modal('show');
         });
 
         $('#btnSave').off('click').on('click', function () {
-            EmployeeController.saveData();
+            if ($('#frmSaveData').valid()) {
+                EmployeeController.saveData();
+            }
         });
 
+
+        $('.btn-edit').off('click').on('click', function () {
+            $('#modalAddUpdate').modal('show');
+            var id = $(this).data('id');
+            EmployeeController.loadDetail(id);
+        });
+
+        $('.btn-delete').off('click').on('click', function () {
+            var id = $(this).data('id');
+            bootbox.confirm("Are you sure?", function (result) {
+                if (result)
+                    EmployeeController.deleteEmployee(id);
+            });
+
+        });
+
+    },
+
+    deleteEmployee: function (id) {
+        $.ajax({
+            url: '/Employees/Delete',
+            type: 'DELETE',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function (response) {
+
+                if (response.status === true) {
+                    bootbox.alert("Delete sucess", function () {
+                        EmployeeController.loadData(true);
+                    });
+                }
+                else {
+                    bootbox.alert("Delete fail");
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    },
+
+    loadDetail: function (id) {
+        $.ajax({
+            url: '/Employees/GetDetail',
+            type: 'GET',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function (response) {
+                var data = response.data;
+                if (response.status === true) {
+                    $('#hidID').val(data.id);
+                    $('#txtName').val(data.name);
+                    $('#txtSalary').val(data.salary);
+                    $('#ckStatus').prop('checked', data.status);
+                }
+                else {
+                    bootbox.alert(response.message);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
     },
 
     saveData: function () {
