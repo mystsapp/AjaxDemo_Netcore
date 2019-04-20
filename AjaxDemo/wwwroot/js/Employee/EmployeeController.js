@@ -53,6 +53,12 @@ var EmployeeController = {
 
         });
 
+        $('#btnReset').off('click').on('click', function () {
+            $('#txtNameS').val('');
+            $('#ddlStatusS').val('');
+            EmployeeController.loadData(true);
+        });
+
         $('#btnAddNew').off('click').on('click', function () {
             $('#modalAddUpdate').modal('show');
         });
