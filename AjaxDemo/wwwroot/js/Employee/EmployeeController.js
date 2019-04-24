@@ -78,13 +78,11 @@ var EmployeeController = {
 
         $('.btn-delete').off('click').on('click', function () {
             var id = $(this).data('id');
-            bootbox.confirm("Are you sure?", function (result) {
-                if (result)
+            bootbox.confirm("Are you sure?", function (response) {
+                if (response)
                     EmployeeController.deleteEmployee(id);
             });
-
         });
-
     },
 
     deleteEmployee: function (id) {
@@ -126,6 +124,7 @@ var EmployeeController = {
                     $('#hidID').val(data.id);
                     $('#txtName').val(data.name);
                     $('#txtSalary').val(data.salary);
+                    $('#txtCreatedDate').val(data.createdDate);
                     $('#ckStatus').prop('checked', data.status);
                 }
                 else {
@@ -142,11 +141,13 @@ var EmployeeController = {
         var name = $('#txtName').val();
         var salary = $('#txtSalary').val();
         var status = $('#ckStatus').prop('checked');
+        var createdDate = $('#txtCreatedDate').val();
         var id = $('#hidID').val();
         var employee = {
             Name: name,
             Salary: salary,
             Status: status,
+            CreatedDate: createdDate,
             Id: id
         };
 
